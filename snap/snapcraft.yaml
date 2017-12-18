@@ -1,0 +1,29 @@
+name: interbench
+version: '0.31+20161024'
+summary: The Linux Interactivity Benchmark
+description: |
+  This benchmark application is designed to benchmark interactivity in Linux.
+
+  It is designed to measure the effect of changes in Linux kernel design or
+  system configuration changes such as cpu, I/O scheduler and filesystem changes
+  and options. With careful benchmarking, different hardware can be compared.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode # use 'strict' once you have the right plugs and slots
+
+apps:
+    interbench:
+        command: interbench
+
+parts:
+  interbench:
+    source: https://github.com/ckolivas/interbench.git
+    plugin: dump
+    build-packages:
+        - make
+        - gcc
+        - libc6-dev
+    build: |
+        make
+    install: |
+        install -D interbench $SNAPCRAFT_PART_INSTALL/usr/bin/interbench
